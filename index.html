@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AS Property Concierge — Immobilien betreut mit Blick fürs Wesentliche</title>
+<!-- Bunny Fonts: EU-gehostet, DSGVO-konform (Drop-in-Ersatz f\u00fcr Google Fonts) -->
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.bunny.net/css?family=cormorant-garamond:300,400,400i,500&family=manrope:300,400,500,600&display=swap">
+<style>
+  :root{
+    --paper:#F4F1EC;
+    --paper-2:#EAE5DC;
+    --ink:#1B2533;
+    --ink-2:#3A4452;
+    --ink-3:#6B7280;
+    --rule:rgba(27,37,51,.14);
+    --accent:#B6925A;
+    --accent-2:#9E7E48;
+    --accent-soft:rgba(182,146,90,.14);
+    --serif:"Cormorant Garamond", "EB Garamond", Georgia, serif;
+    --sans:"Manrope", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:400;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  ::selection{background:var(--ink);color:var(--paper)}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+
+  /* ---------- LAYOUT ---------- */
+  .wrap{max-width:1320px;margin:0 auto;padding:0 40px}
+  @media (max-width:720px){ .wrap{padding:0 22px} }
+
+  .eyebrow{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3)}
+  .eyebrow .dot{display:inline-block;width:5px;height:5px;background:var(--accent);border-radius:50%;vertical-align:middle;margin-right:10px;transform:translateY(-1px)}
+
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:400;letter-spacing:-.005em;margin:0;color:var(--ink)}
+  h1{font-size:clamp(48px,7.2vw,108px);line-height:.98;letter-spacing:-.015em}
+  h2{font-size:clamp(32px,4.6vw,64px);line-height:1.02;letter-spacing:-.01em}
+  h3{font-size:clamp(22px,2.2vw,30px);line-height:1.15}
+  h4{font-size:18px;line-height:1.3}
+  p{margin:0}
+  .lead{font-size:clamp(18px,1.45vw,21px);line-height:1.55;color:var(--ink-2);max-width:60ch}
+
+  /* ---------- NAV ---------- */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(245,241,235,.85);backdrop-filter:saturate(140%) blur(10px);-webkit-backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--rule)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:84px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand img{height:46px;width:auto;display:block}
+  .brand-mark{width:34px;height:34px;border:1px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-size:14px;font-style:italic;letter-spacing:.02em}
+  .brand-name{font-family:var(--serif);font-size:19px;letter-spacing:.01em}
+  .brand-name em{font-style:italic;color:var(--ink-3);font-weight:300}
+  .nav-links{display:flex;gap:34px;font-size:14px;color:var(--ink-2)}
+  .nav-links a{transition:color .2s}
+  .nav-links a:hover{color:var(--accent)}
+  .nav-cta{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);padding:11px 18px 11px 20px;border-radius:999px;font-size:13.5px;font-weight:500;letter-spacing:.01em;transition:transform .2s, background .2s}
+  .nav-cta:hover{background:var(--accent)}
+  .nav-cta .arr{display:inline-block;width:14px;height:1px;background:currentColor;position:relative}
+  .nav-cta .arr::after{content:"";position:absolute;right:-1px;top:-3px;width:7px;height:7px;border-right:1px solid currentColor;border-top:1px solid currentColor;transform:rotate(45deg)}
+  @media (max-width:860px){ .nav-links{display:none} }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:90px 0 110px;position:relative}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:64px;align-items:end}
+  @media (max-width:980px){ .hero-grid{grid-template-columns:1fr;gap:40px} }
+  .hero h1 .it{font-style:italic;color:var(--accent);font-weight:300}
+  .hero-meta{display:flex;flex-direction:column;gap:24px;padding-bottom:6px}
+  .hero-meta .line{height:1px;background:var(--rule)}
+  .hero-meta-row{display:flex;justify-content:space-between;gap:24px;font-size:13.5px;color:var(--ink-2)}
+  .hero-meta-row b{font-weight:500;color:var(--ink);font-family:var(--sans)}
+  .hero-tag{display:flex;align-items:center;gap:14px;margin-top:34px;color:var(--ink-3);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+  .hero-tag .num{font-family:var(--serif);font-style:italic;color:var(--ink);font-size:16px;letter-spacing:0;text-transform:none}
+
+  .hero-bottom{margin-top:80px;display:grid;grid-template-columns:1.3fr 1fr;gap:64px;align-items:start}
+  @media (max-width:980px){ .hero-bottom{grid-template-columns:1fr;gap:40px} }
+  .hero-cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+  .btn{display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;font-size:14px;font-weight:500;letter-spacing:.01em;transition:all .2s;cursor:pointer;border:none;font-family:var(--sans)}
+  .btn-primary{background:var(--ink);color:var(--paper)}
+  .btn-primary:hover{background:var(--accent)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--paper)}
+  .btn .arr{display:inline-block;width:16px;height:1px;background:currentColor;position:relative}
+  .btn .arr::after{content:"";position:absolute;right:-1px;top:-3px;width:7px;height:7px;border-right:1px solid currentColor;border-top:1px solid currentColor;transform:rotate(45deg)}
+
+  /* Hero image / placeholder */
+  .hero-img{aspect-ratio: 4/5; width:100%; background:var(--paper-2); border:1px solid var(--rule); position:relative; overflow:hidden}
+  .hero-img img, .portrait img{width:100%;height:100%;object-fit:cover;display:block}
+  .placeholder{position:relative;background:
+      repeating-linear-gradient(135deg, rgba(28,26,23,.04) 0 2px, transparent 2px 14px),
+      var(--paper-2);
+  }
+  .placeholder .ph-label{position:absolute;left:16px;bottom:16px;font-family: ui-monospace,"SF Mono","JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);background:rgba(245,241,235,.85);padding:6px 10px;border:1px solid var(--rule);border-radius:2px}
+  .placeholder .ph-tag{position:absolute;right:16px;top:16px;font-family: ui-monospace,"SF Mono","JetBrains Mono",monospace;font-size:10px;letter-spacing:.08em;color:var(--ink-3)}
+
+  /* ---------- SECTION CHROME ---------- */
+  section{padding:110px 0;border-top:1px solid var(--rule)}
+  .section-head{display:grid;grid-template-columns:120px 1fr;gap:48px;margin-bottom:64px;align-items:start}
+  @media (max-width:720px){ .section-head{grid-template-columns:1fr;gap:14px} }
+  .section-num{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--ink-3)}
+  .section-title h2{max-width:18ch}
+  .section-title .kicker{margin-bottom:18px}
+  .section-title .lead{margin-top:22px}
+
+  /* ---------- KONZEPT ---------- */
+  .konzept-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+  @media (max-width:860px){ .konzept-grid{grid-template-columns:1fr;gap:40px} }
+  .konzept-body p + p{margin-top:18px}
+  .konzept-body .pull{font-family:var(--serif);font-size:clamp(22px,2.2vw,28px);line-height:1.35;color:var(--ink);font-style:italic;margin:32px 0;padding-left:22px;border-left:1px solid var(--accent)}
+  .audience-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule)}
+  .audience-list li{list-style:none;display:grid;grid-template-columns:40px 1fr auto;gap:18px;padding:18px 0;border-bottom:1px solid var(--rule);align-items:center}
+  .audience-list .ix{font-family: ui-monospace,"SF Mono","JetBrains Mono",monospace;color:var(--ink-3);font-size:12px;letter-spacing:.08em}
+  .audience-list .lbl{font-size:15px;color:var(--ink)}
+  .audience-list .tag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:500}
+
+  /* ---------- LEISTUNGEN ---------- */
+  .services{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
+  @media (max-width:780px){ .services{grid-template-columns:1fr} }
+  .service{padding:44px 44px 48px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper);transition:background .25s}
+  .service:hover{background:var(--paper-2)}
+  .service-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px}
+  .service-num{font-family: ui-monospace,"SF Mono","JetBrains Mono",monospace;font-size:12px;letter-spacing:.08em;color:var(--ink-3)}
+  .service-cat{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  .service h3{margin-bottom:18px;max-width:14ch}
+  .service ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+  .service li{font-size:14.5px;color:var(--ink-2);padding-left:18px;position:relative;line-height:1.5}
+  .service li::before{content:"";position:absolute;left:0;top:11px;width:8px;height:1px;background:var(--ink-3)}
+
+  /* ---------- PAKETE ---------- */
+  .pakete-intro-row{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:48px;flex-wrap:wrap}
+  .pakete-note{font-size:12.5px;color:var(--ink-3);max-width:36ch}
+  .packages{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+  @media (max-width:980px){ .packages{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:640px){ .packages{grid-template-columns:1fr} }
+  .pkg{background:var(--paper);padding:40px 32px 36px;display:flex;flex-direction:column;position:relative;min-height:430px}
+  .pkg.featured{background:var(--ink);color:var(--paper)}
+  .pkg.featured h3, .pkg.featured .pkg-price{color:var(--paper)}
+  .pkg.featured .pkg-num, .pkg.featured .pkg-type, .pkg.featured .pkg-list li{color:rgba(245,241,235,.7)}
+  .pkg.featured .pkg-list li::before{background:rgba(245,241,235,.5)}
+  .pkg.featured .pkg-price-unit{color:rgba(245,241,235,.6)}
+  .pkg-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+  .pkg-num{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--ink-3)}
+  .pkg-type{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+  .pkg.featured .pkg-type.star{color:var(--paper);background:var(--accent);padding:5px 9px;border-radius:2px;letter-spacing:.14em}
+  .pkg h3{margin:14px 0 8px;font-size:26px;letter-spacing:-.005em}
+  .pkg-sub{font-size:13.5px;color:var(--ink-3);line-height:1.5;margin-bottom:24px;min-height:60px}
+  .pkg.featured .pkg-sub{color:rgba(245,241,235,.7)}
+  .pkg-list{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-direction:column;gap:9px;flex:1}
+  .pkg-list li{font-size:13.5px;color:var(--ink-2);padding-left:16px;position:relative;line-height:1.5}
+  .pkg-list li::before{content:"";position:absolute;left:0;top:10px;width:7px;height:1px;background:var(--ink-3)}
+  .pkg-foot{border-top:1px solid var(--rule);padding-top:18px;display:flex;justify-content:space-between;align-items:end;gap:12px}
+  .pkg.featured .pkg-foot{border-top-color:rgba(245,241,235,.18)}
+  .pkg-price{font-family:var(--serif);font-size:28px;line-height:1;color:var(--ink);letter-spacing:-.01em}
+  .pkg-price-unit{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+  .pkg-arrow{width:38px;height:38px;border-radius:50%;border:1px solid var(--rule);display:grid;place-items:center;transition:all .2s;cursor:pointer;background:transparent;color:inherit}
+  .pkg-arrow:hover{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+  .pkg.featured .pkg-arrow{border-color:rgba(245,241,235,.3)}
+  .pkg.featured .pkg-arrow:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  .pkg-arrow svg{width:14px;height:14px}
+
+  /* ---------- WARUM ---------- */
+  .warum-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:72px;align-items:start}
+  @media (max-width:980px){ .warum-grid{grid-template-columns:1fr;gap:40px} }
+  .portrait{aspect-ratio:4/5;background:var(--paper-2)}
+  .portrait .ph-label{background:rgba(245,241,235,.85)}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:12px;border-top:1px solid var(--rule)}
+  .stat{padding:26px 0;border-bottom:1px solid var(--rule)}
+  .stat:nth-child(odd){padding-right:24px;border-right:1px solid var(--rule)}
+  .stat:nth-child(even){padding-left:24px}
+  .stat .v{font-family:var(--serif);font-size:48px;line-height:1;letter-spacing:-.02em;color:var(--ink)}
+  .stat .v sup{font-family:var(--serif);font-size:22px;vertical-align:top;color:var(--accent);margin-left:2px}
+  .stat .k{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-top:10px}
+
+  .warum-body h3{font-size:clamp(26px,2.4vw,34px);margin-bottom:14px}
+  .warum-body .block + .block{margin-top:36px;padding-top:36px;border-top:1px solid var(--rule)}
+  .warum-body p{color:var(--ink-2);font-size:15.5px;max-width:54ch}
+
+  /* ---------- KONTAKT ---------- */
+  .kontakt{background:var(--ink);color:var(--paper);border-top:none}
+  .kontakt .eyebrow{color:rgba(245,241,235,.6)}
+  .kontakt h2{color:var(--paper)}
+  .kontakt .section-num{color:rgba(245,241,235,.5)}
+  .kontakt-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:start}
+  @media (max-width:980px){ .kontakt-grid{grid-template-columns:1fr;gap:48px} }
+  .kontakt h2{font-size:clamp(40px,5vw,72px);line-height:1.02;max-width:14ch}
+  .kontakt h2 .it{font-style:italic;color:var(--accent);font-weight:300}
+  .kontakt-cta{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap}
+  .btn-light{background:var(--paper);color:var(--ink)}
+  .btn-light:hover{background:var(--accent);color:var(--paper)}
+  .btn-darkghost{background:transparent;color:var(--paper);border:1px solid rgba(245,241,235,.3)}
+  .btn-darkghost:hover{border-color:var(--paper)}
+  .contact-card{background:transparent;border:1px solid rgba(245,241,235,.18);padding:36px;display:flex;flex-direction:column;gap:22px}
+  .contact-row{display:flex;justify-content:space-between;gap:16px;padding-bottom:18px;border-bottom:1px solid rgba(245,241,235,.12)}
+  .contact-row:last-child{border-bottom:none;padding-bottom:0}
+  .contact-row .k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,241,235,.5)}
+  .contact-row .v{font-family:var(--serif);font-size:18px;color:var(--paper)}
+  .contact-row .v.small{font-family:var(--sans);font-size:14px;color:rgba(245,241,235,.85)}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--ink);color:rgba(245,241,235,.5);padding:32px 0 36px;border-top:1px solid rgba(245,241,235,.12)}
+  .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-size:12.5px}
+  .foot-inner a:hover{color:var(--paper)}
+  .foot-links{display:flex;gap:24px}
+  .foot-brand{display:flex;align-items:center;gap:10px;color:rgba(245,241,235,.7)}
+  .foot-brand .brand-mark{width:26px;height:26px;font-size:11px;border-color:rgba(245,241,235,.4)}
+
+  /* utilities */
+  .it{font-style:italic}
+  .center{text-align:center}
+</style>
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#" aria-label="AS Property Concierge">
+      <img src="assets/logo.png" alt="AS Property Concierge" />
+    </a>
+    <div class="nav-links">
+      <a href="#konzept">Konzept</a>
+      <a href="#leistungen">Leistungen</a>
+      <a href="#pakete">Pakete</a>
+      <a href="#warum">Über</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+    <a class="nav-cta" href="#kontakt">Termin anfragen <span class="arr"></span></a>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<header class="hero">
+  <div class="wrap">
+
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Objektbetreuung · Düsseldorf · seit 2026</div>
+        <h1 style="margin-top:28px;">
+          Wenn Eigentum<br>
+          <span class="it">Aufmerksamkeit</span><br>
+          braucht.
+        </h1>
+        <div class="hero-tag"><span class="num">—</span> Immobilien betreut mit Blick fürs Wesentliche.</div>
+      </div>
+
+      <aside class="hero-meta">
+        <div class="line"></div>
+        <div class="hero-meta-row"><span>Sitz</span><b>Düsseldorf Stadtmitte</b></div>
+        <div class="line"></div>
+        <div class="hero-meta-row"><span>Tätig</span><b>NRW</b></div>
+        <div class="line"></div>
+        <div class="hero-meta-row"><span>Erfahrung</span><b>20+ Jahre Immobilien</b></div>
+        <div class="line"></div>
+        <div class="hero-meta-row"><span>Spezialisierung</span><b>Airbnb · Ferienwohnungen</b></div>
+        <div class="line"></div>
+      </aside>
+    </div>
+
+    <div class="hero-bottom">
+      <div>
+        <p class="lead">
+          AS Property Concierge übernimmt Objektkontrollen, dokumentiert den Zustand sauber mit Foto und Video, berät bei sinnvoller Optimierung und koordiniert auf Wunsch Handwerker — für Eigentümer, die ihr Objekt in guten Händen wissen möchten.
+        </p>
+        <div class="hero-cta-row">
+          <a class="btn btn-primary" href="#pakete">Pakete ansehen <span class="arr"></span></a>
+          <a class="btn btn-ghost" href="#kontakt">Persönliches Gespräch</a>
+        </div>
+      </div>
+      <div class="hero-img">
+        <img src="assets/objekt.jpg" alt="Modernes Wohnzimmer mit Garten · betreute Immobilie" />
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<!-- ============== KONZEPT ============== -->
+<section id="konzept">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">01 — Konzept</div>
+      <div class="section-title">
+        <div class="eyebrow kicker"><span class="dot"></span>Was wir tun</div>
+        <h2>Objektbetreuung für Eigentümer mit Anspruch.</h2>
+        <p class="lead">
+          Kontrolle, Dokumentation, Optimierungsberatung und visuelle Präsentation — aus einer Hand, mit dem geschulten Blick eines langjährigen Vermieters und Film­editors.
+        </p>
+      </div>
+    </div>
+
+    <div class="konzept-grid">
+      <div class="konzept-body">
+        <p style="color:var(--ink-2)">
+          AS Property Concierge unterstützt Eigentümer, Vermieter und Ferienwohnungs­besitzer dabei, ihre Immobilien zuverlässig im Blick zu behalten — auch wenn sie selbst nicht vor Ort sein können oder sich nicht um jedes Detail kümmern möchten.
+        </p>
+        <div class="pull">
+          „Präzise Kontrolle, klare Kommunikation und ein geschulter Blick fürs Detail."
+        </div>
+        <p style="color:var(--ink-2)">
+          Sie erhalten saubere Foto- und Video­dokumentation, einen kurzen Zustands­bericht mit klarer Einschätzung — und auf Wunsch die Koordination weiterer Schritte. Persönlich, vertrauensvoll, ohne Umwege.
+        </p>
+      </div>
+
+      <div>
+        <div class="eyebrow" style="margin-bottom:18px;">Für wen</div>
+        <ul class="audience-list">
+          <li><span class="ix">01</span><span class="lbl">Airbnb-Hosts &amp; Ferienwohnungsbesitzer</span><span></span></li>
+          <li><span class="ix">02</span><span class="lbl">Eigentümer, die nicht ständig vor Ort sein können</span><span></span></li>
+          <li><span class="ix">03</span><span class="lbl">Vermieter mit wenig Zeit</span><span></span></li>
+          <li><span class="ix">04</span><span class="lbl">Besitzer von Zweitwohnungen</span><span></span></li>
+          <li><span class="ix">05</span><span class="lbl">Makler mit Bedarf an Dokumentation</span><span></span></li>
+          <li><span class="ix">06</span><span class="lbl">Familien &amp; Erbengemeinschaften</span><span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== LEISTUNGEN ============== -->
+<section id="leistungen">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">02 — Leistungen</div>
+      <div class="section-title">
+        <div class="eyebrow kicker"><span class="dot"></span>Vier Säulen</div>
+        <h2>Was Sie konkret bekommen.</h2>
+      </div>
+    </div>
+
+    <div class="services">
+      <article class="service">
+        <div class="service-head"><span class="service-num">01</span><span class="service-cat">Kontrolle</span></div>
+        <h3>Objektkontrolle &amp; Dokumentation</h3>
+        <ul>
+          <li>Vor-Ort-Check von Wohnung, Haus, Terrasse oder Garten</li>
+          <li>Kontrolle von sichtbaren Schäden, Mängeln und Auffälligkeiten</li>
+          <li>Professionelle Foto- oder Video­dokumentation</li>
+          <li>Zählerstände, Fenster, Türen, Heizung, Feuchtigkeit, Außenbereiche</li>
+          <li>Kurzer Zustandsbericht mit klarer Einschätzung</li>
+        </ul>
+      </article>
+
+      <article class="service">
+        <div class="service-head"><span class="service-num">02</span><span class="service-cat">Beratung</span></div>
+        <h3>Beratung &amp; Optimierung</h3>
+        <ul>
+          <li>Optische und praktische Verbesserungs­möglichkeiten</li>
+          <li>Maßnahmen, die sinnvoll, realistisch und wirtschaftlich sind</li>
+          <li>Einschätzung von Aufwand, Wirkung und groben Kosten</li>
+          <li>Empfehlungen für Vermietung, Verkauf oder Eigennutzung</li>
+          <li>Ausstattung, Raumwirkung, Zustand, Nutzungspotenzial</li>
+        </ul>
+      </article>
+
+      <article class="service">
+        <div class="service-head"><span class="service-num">03</span><span class="service-cat">Koordination</span></div>
+        <h3>Organisation &amp; Koordination</h3>
+        <ul>
+          <li>Abstimmung mit Handwerkern, Reinigungs­kräften, Dienstleistern</li>
+          <li>Terminorganisation</li>
+          <li>Übergabe- und Abnahme­begleitung</li>
+          <li>Kontrolle nach Reparaturen oder Mieterwechsel</li>
+          <li>Praktische Problemlösung nach Absprache</li>
+        </ul>
+      </article>
+
+      <article class="service">
+        <div class="service-head"><span class="service-num">04</span><span class="service-cat">Content</span></div>
+        <h3>Immobilien-Content &amp; Präsentation</h3>
+        <ul>
+          <li>Hochwertige Fotos und kurze Videos</li>
+          <li>Objektclips für Vermietung, Verkauf oder Ferienwohnung</li>
+          <li>Reels und Social-Media-Material</li>
+          <li>Optimierung von Inseraten und Objekt­beschreibungen</li>
+          <li>Visuelle Dokumentation für Eigentümer, Makler, Vermieter</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PAKETE ============== -->
+<section id="pakete" style="background:var(--paper);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">03 — Pakete</div>
+      <div class="section-title">
+        <div class="eyebrow kicker"><span class="dot"></span>Klare Preise</div>
+        <h2>Sechs Pakete. Eine Sprache: <span class="it">verlässlich.</span></h2>
+      </div>
+    </div>
+
+    <div class="pakete-intro-row">
+      <p class="lead" style="max-width:48ch">
+        Einmalige Checks, monatliche Betreuung oder vollständiges Content-Setup — Sie wählen, was zu Ihrem Objekt passt.
+      </p>
+      <p class="pakete-note">
+        Alle Preise verstehen sich als Endpreise (Kleinunternehmer gem. § 19 UStG — keine Umsatzsteuer ausgewiesen).
+      </p>
+    </div>
+
+    <div class="packages">
+
+      <article class="pkg">
+        <div class="pkg-top"><span class="pkg-num">01</span><span class="pkg-type">Einmalig</span></div>
+        <h3>Objekt-Check Basic</h3>
+        <p class="pkg-sub">Für Eigentümer, die wissen möchten, ob vor Ort alles in Ordnung ist.</p>
+        <ul class="pkg-list">
+          <li>Vor-Ort-Termin (45–60 Min)</li>
+          <li>Sichtkontrolle des Objekts</li>
+          <li>10–15 Fotos zur Dokumentation</li>
+          <li>Kurze schriftliche Zusammen­fassung per E-Mail</li>
+          <li>Hinweise auf sichtbare Mängel</li>
+        </ul>
+        <div class="pkg-foot">
+          <div><div class="pkg-price">80 – 250 €</div><div class="pkg-price-unit">je nach Größe</div></div>
+          <button class="pkg-arrow" aria-label="Mehr"><svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.2"/></svg></button>
+        </div>
+      </article>
+
+      <article class="pkg">
+        <div class="pkg-top"><span class="pkg-num">02</span><span class="pkg-type">Einmalig</span></div>
+        <h3>Objekt-Check Premium</h3>
+        <p class="pkg-sub">Gründliche Kontrolle mit klaren Handlungs­empfehlungen.</p>
+        <ul class="pkg-list">
+          <li>Ausführlicher Vor-Ort-Check (90–120 Min)</li>
+          <li>Foto- und Video­dokumentation</li>
+          <li>Innen, Außen, Garten, Zählerstände</li>
+          <li>Strukturierter Zustandsbericht (PDF)</li>
+          <li>Priorisierte Empfehlungen</li>
+        </ul>
+        <div class="pkg-foot">
+          <div><div class="pkg-price">200 – 350 €</div><div class="pkg-price-unit">je nach Größe</div></div>
+          <button class="pkg-arrow" aria-label="Mehr"><svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.2"/></svg></button>
+        </div>
+      </article>
+
+      <article class="pkg featured">
+        <div class="pkg-top"><span class="pkg-num">03</span><span class="pkg-type star">★ Bestseller</span></div>
+        <h3>Airbnb-Paket</h3>
+        <p class="pkg-sub">Für Ferienwohnungen und Airbnb-Hosts mit regelmäßigen Gästewechseln.</p>
+        <ul class="pkg-list">
+          <li>4 Kontrollen pro Monat — ideal zwischen Buchungen</li>
+          <li>Fotodokumentation nach jedem Check</li>
+          <li>Schadens­erkennung, bevor es teuer wird</li>
+          <li>Monatlicher Zustands­bericht per E-Mail</li>
+          <li>Koordination mit Reinigungs­kraft bei Bedarf</li>
+          <li>Persönliche Erreichbarkeit</li>
+        </ul>
+        <div class="pkg-foot">
+          <div><div class="pkg-price">300 – 400 €</div><div class="pkg-price-unit">pro Monat</div></div>
+          <button class="pkg-arrow" aria-label="Mehr"><svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.2"/></svg></button>
+        </div>
+      </article>
+
+      <article class="pkg">
+        <div class="pkg-top"><span class="pkg-num">04</span><span class="pkg-type">Monatlich</span></div>
+        <h3>Zweitwohnungs-Paket</h3>
+        <p class="pkg-sub">Für Eigentümer von Zweitwohnungen mit regel­mäßigem Betreuungs­bedarf.</p>
+        <ul class="pkg-list">
+          <li>1 ausführlicher Check pro Monat</li>
+          <li>Fotodokumentation</li>
+          <li>Monatsbericht per E-Mail</li>
+          <li>Kontrolle Mängel &amp; Außenbereich</li>
+          <li>Beratung zu Verbesserungen</li>
+          <li>Koordination kleiner Maßnahmen</li>
+        </ul>
+        <div class="pkg-foot">
+          <div><div class="pkg-price">90 – 150 €</div><div class="pkg-price-unit">pro Monat</div></div>
+          <button class="pkg-arrow" aria-label="Mehr"><svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.2"/></svg></button>
+        </div>
+      </article>
+
+      <article class="pkg">
+        <div class="pkg-top"><span class="pkg-num">05</span><span class="pkg-type">Content</span></div>
+        <h3>Immobilien-Content</h3>
+        <p class="pkg-sub">Für Vermieter, Ferienwohnungen oder Makler, die ihr Objekt hochwertig präsentieren möchten.</p>
+        <ul class="pkg-list">
+          <li>Objektbesichtigung mit professionellem Auge</li>
+          <li>15–20 bearbeitete Fotos</li>
+          <li>Video-Tour (2–3 Min) oder 3 Social-Clips</li>
+          <li>Optimierung der Objekt­beschreibung</li>
+          <li>Material für Inserate &amp; Social Media</li>
+        </ul>
+        <div class="pkg-foot">
+          <div><div class="pkg-price">400 – 650 €</div><div class="pkg-price-unit">einmalig</div></div>
+          <button class="pkg-arrow" aria-label="Mehr"><svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.2"/></svg></button>
+        </div>
+      </article>
+
+      <article class="pkg">
+        <div class="pkg-top"><span class="pkg-num">06</span><span class="pkg-type">Setup</span></div>
+        <h3>Ferienwohnungs-Setup</h3>
+        <p class="pkg-sub">Für Eigentümer, die eine Ferienwohnung professioneller aufstellen möchten.</p>
+        <ul class="pkg-list">
+          <li>Umfassende Objektanalyse (2–3 Std)</li>
+          <li>Foto- &amp; Video­dokumentation</li>
+          <li>Check-in/Check-out-Struktur</li>
+          <li>Reinigungs- und Kontroll­checklisten</li>
+          <li>Inserat-, Text- und Bild­optimierung</li>
+          <li>Umsetzungs­empfehlungen mit Kosten-Nutzen</li>
+        </ul>
+        <div class="pkg-foot">
+          <div><div class="pkg-price">750 – 950 €</div><div class="pkg-price-unit">einmalig</div></div>
+          <button class="pkg-arrow" aria-label="Mehr"><svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.2"/></svg></button>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== WARUM ============== -->
+<section id="warum">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">04 — Warum AS</div>
+      <div class="section-title">
+        <div class="eyebrow kicker"><span class="dot"></span>Über Aron Szabo</div>
+        <h2>Aus der Praxis. <span class="it">Für die Praxis.</span></h2>
+      </div>
+    </div>
+
+    <div class="warum-grid">
+      <div>
+        <div class="portrait">
+          <img src="assets/aron-szabo.jpg" alt="Aron Szabo · Inhaber AS Property Concierge" />
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="v">20<sup>+</sup></div><div class="k">Jahre Immobilien­erfahrung</div></div>
+          <div class="stat"><div class="v">NRW</div><div class="k">Düsseldorf &amp; Umgebung</div></div>
+          <div class="stat"><div class="v">6</div><div class="k">Eigene Objekte verwaltet</div></div>
+          <div class="stat"><div class="v">4K</div><div class="k">Foto- &amp; Video­standard</div></div>
+        </div>
+      </div>
+
+      <div class="warum-body">
+        <div class="block">
+          <h3>20+ Jahre Immobilien­erfahrung.</h3>
+          <p>AS Property Concierge entsteht aus über zwanzig Jahren eigener Erfahrung mit Immobilien. Ich besitze und vermiete selbst mehrere Wohnungen, habe zahlreiche Umzüge, Renovierungen und Sanierungen geplant, begleitet und teilweise selbst umgesetzt. Ich kenne Immobilien nicht nur theoretisch — sondern aus der Praxis.</p>
+        </div>
+        <div class="block">
+          <h3>Der geschulte Blick eines Film- &amp; Video­editors.</h3>
+          <p>Meine Erfahrung als Film- und Videoeditor ist ein entscheidender Vorteil: ein professionell geschulter Blick für Optik, Wirkung und Details. Eigentümer erhalten dadurch nicht nur Kontrolle, sondern auch klare, professionelle Dokumentation auf dem Niveau, das heute für erfolgreiche Vermietung oder Verkauf erwartet wird.</p>
+        </div>
+        <div class="block">
+          <h3>Vor Ort in Düsseldorf &amp; NRW.</h3>
+          <p>Mein Fokus liegt auf Düsseldorf und Umgebung — kurze Wege, schnelle Reaktionszeiten, persönliche Übergaben. Ich kenne den lokalen Markt, die Handwerker­netzwerke und die Eigenheiten der Region. Das Ergebnis: persönliche, vertrauensvolle und präzise Objektbetreuung für Eigentümer, die ihr Objekt in guten Händen wissen möchten.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== KONTAKT ============== -->
+<section id="kontakt" class="kontakt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">05 — Kontakt</div>
+      <div class="section-title">
+        <div class="eyebrow kicker"><span class="dot"></span>Persönliches Gespräch</div>
+        <h2>Sprechen wir<br>über Ihr <span class="it">Objekt.</span></h2>
+      </div>
+    </div>
+
+    <div class="kontakt-grid">
+      <div>
+        <p class="lead" style="color:rgba(245,241,235,.75);max-width:48ch">
+          Schreiben Sie mir oder rufen Sie an — wir besprechen Ihr Objekt in einem kurzen, persönlichen Gespräch und finden gemeinsam das passende Paket.
+        </p>
+        <div class="kontakt-cta">
+          <a class="btn btn-light" href="mailto:kontakt@as-property.de">E-Mail schreiben <span class="arr"></span></a>
+          <a class="btn btn-darkghost" href="tel:+491708960284">+49 170 896 02 84</a>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-row"><span class="k">Inhaber</span><span class="v">Aron Szabo</span></div>
+        <div class="contact-row"><span class="k">Anschrift</span><span class="v small">Liesegangstraße 22<br>40211 Düsseldorf</span></div>
+        <div class="contact-row"><span class="k">Telefon</span><span class="v small">+49 170 896 02 84</span></div>
+        <div class="contact-row"><span class="k">E-Mail</span><span class="v small">kontakt@as-property.de</span></div>
+        <div class="contact-row"><span class="k">Web</span><span class="v small">as-property-concierge.de</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer>
+  <div class="wrap foot-inner">
+    <div class="foot-brand">
+      <span>AS Property Concierge · © 2026</span>
+    </div>
+    <div class="foot-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </div>
+    <div>Immobilien betreut mit Blick fürs Wesentliche.</div>
+  </div>
+</footer>
+
+<script>
+  // smooth scroll for internal links
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const id = a.getAttribute('href');
+      if(id.length>1){
+        const el = document.querySelector(id);
+        if(el){
+          e.preventDefault();
+          const top = el.getBoundingClientRect().top + window.pageYOffset - 60;
+          window.scrollTo({top, behavior:'smooth'});
+        }
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
